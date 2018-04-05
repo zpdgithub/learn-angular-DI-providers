@@ -27,6 +27,9 @@ class ParamService {
   `
 })
 export class AppComponent {
+  constructor(
+    private simpleService: SimpleService,
+  ) { }
 }
 
 @NgModule({
@@ -36,7 +39,9 @@ export class AppComponent {
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [
+    SimpleService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

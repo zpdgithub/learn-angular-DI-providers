@@ -20,6 +20,27 @@ class ParamService {
   }
 }
 
+class User {
+  name: string;
+  constructor() {
+    this.name = 'zhangsan';
+  }
+  loggedIn(): boolean {
+    return false;
+  }
+}
+class MyComponent {
+  constructor() {
+    console.log('MyComponent');
+  }
+}
+class MyLoggedComponent {
+  constructor(private user) {
+    console.log('MyLoggedComponent', user.name);
+  }
+}
+
+
 @Component({
   selector: 'app-root',
   template: `
@@ -30,6 +51,7 @@ export class AppComponent {
   constructor(
     private simpleService: SimpleService,
     private paramService: ParamService,
+    private myComponent: MyComponent
   ) { }
   invokeService(): void {
     console.log('SimpleService returned', this.simpleService.getValue());
@@ -51,6 +73,19 @@ export class AppComponent {
     {
       provide: ParamService,
       useFactory: (): ParamService => new ParamService('YOLO')
+    },
+    // 使用工厂注入MyComponent，工厂也有自己的依赖User
+    User,
+    {
+      provide: MyComponent,
+      useFactory: (user) => {
+        if (user.loggedIn()) {
+          return new MyLoggedComponent(user);
+        } else {
+          return new MyComponent();
+        }
+      },
+      deps: [User]
     }
   ],
   bootstrap: [AppComponent]

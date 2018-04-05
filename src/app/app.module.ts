@@ -11,6 +11,15 @@ class SimpleService {
   }
 }
 
+class ParamService {
+  constructor(private phrase: string) { // 带参数的构造函数
+    console.log('ParamService is being created with phrase', phrase);
+  }
+  getValue(): string {
+    return this.phrase;
+  }
+}
+
 @Component({
   selector: 'app-root',
   template: `

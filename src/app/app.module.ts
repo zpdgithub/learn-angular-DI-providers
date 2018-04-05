@@ -29,6 +29,7 @@ class ParamService {
 export class AppComponent {
   constructor(
     private simpleService: SimpleService,
+    private paramService: ParamService,
   ) { }
 }
 
@@ -40,7 +41,13 @@ export class AppComponent {
     BrowserModule
   ],
   providers: [
-    SimpleService
+    // 使用类
+    SimpleService,
+    // 使用工厂
+    {
+      provide: ParamService,
+      useFactory: (): ParamService => new ParamService('YOLO')
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -23,7 +23,7 @@ class ParamService {
 @Component({
   selector: 'app-root',
   template: `
-  root
+  <button (click)="invokeService()">Get Value</button>
   `
 })
 export class AppComponent {
@@ -31,6 +31,10 @@ export class AppComponent {
     private simpleService: SimpleService,
     private paramService: ParamService,
   ) { }
+  invokeService(): void {
+    console.log('SimpleService returned', this.simpleService.getValue());
+    console.log('ParamService returned', this.paramService.getValue());
+  }
 }
 
 @NgModule({
